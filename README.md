@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
-# wanted-cloud/terraform-module-template
+# wanted-cloud/terraform-azure-resource-provider-registration
 
-This repository represents a template for a Terraform building block module as we think it should be done, so it's for sure opinionated but in our eyes simple and powerful. Feel free to use or contribute.
+Simple building block module for Azure Resource Provider Registration.
 
 ## Table of contents
 
@@ -19,15 +19,38 @@ No requirements.
 
 ## Providers
 
-No providers.
+The following providers are used by this module:
+
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm)
 
 ## Required Inputs
 
-No required inputs.
+The following input variables are required:
+
+### <a name="input_resource_provider_registration_name"></a> [resource\_provider\_registration\_name](#input\_resource\_provider\_registration\_name)
+
+Description: The name of the resource provider registration.
+
+Type: `string`
 
 ## Optional Inputs
 
 The following input variables are optional (have default values):
+
+### <a name="input_features"></a> [features](#input\_features)
+
+Description: The features to be enabled for the resource provider registration.
+
+Type:
+
+```hcl
+list(object({
+    name       = string
+    registered = optional(bool, true)
+  }))
+```
+
+Default: `{}`
 
 ### <a name="input_metadata"></a> [metadata](#input\_metadata)
 
@@ -53,11 +76,17 @@ Default: `{}`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### <a name="output_resource_provider_registration"></a> [resource\_provider\_registration](#output\_resource\_provider\_registration)
+
+Description: n/a
 
 ## Resources
 
-No resources.
+The following resources are used by this module:
+
+- [azurerm_resource_provider_registration.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_provider_registration) (resource)
 
 ## Usage
 
@@ -67,7 +96,7 @@ Module was also published via Terraform Registry and can be used as a module fro
 
 ```hcl
 module "example" {
-  source  = "app.terraform.io/wanted-cloud/azure/resource-group"
+  source  = "wanted-cloud/resource-provider-registration/azure"
   version = "x.y.z"
 }
 ```
@@ -79,6 +108,8 @@ The minimal usage for the module is as follows:
 ```hcl
 module "template" {
     source = "../.."
+
+    resource_provider_registration_name = "Microsoft.Compute"
 }
 ```
 ## Contributing
