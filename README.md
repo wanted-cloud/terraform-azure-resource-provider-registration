@@ -54,7 +54,7 @@ list(object({
   }))
 ```
 
-Default: `{}`
+Default: `[]`
 
 ### <a name="input_metadata"></a> [metadata](#input\_metadata)
 
@@ -64,12 +64,16 @@ Type:
 
 ```hcl
 object({
-    resource_timeouts = optional(object({
-      create = optional(string, "30m")
-      read   = optional(string, "5m")
-      update = optional(string, "30m")
-      delete = optional(string, "30m")
-    }), {})
+    resource_timeouts = optional(
+      map(
+        object({
+          create = optional(string, "30m")
+          read   = optional(string, "5m")
+          update = optional(string, "30m")
+          delete = optional(string, "30m")
+        })
+      ), {}
+    )
     tags                     = optional(map(string), {})
     validator_error_messages = optional(map(string), {})
     validator_expressions    = optional(map(string), {})

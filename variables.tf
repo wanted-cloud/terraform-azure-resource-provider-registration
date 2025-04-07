@@ -9,5 +9,5 @@ variable "features" {
     name       = string
     registered = optional(bool, true)
   }))
-  default = {}
+  default = []
 }
